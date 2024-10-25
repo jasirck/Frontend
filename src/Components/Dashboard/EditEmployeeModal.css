@@ -1,0 +1,112 @@
+/* EditEmployeeModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; /* Increased max-width for better usability */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px; /* Slightly more padding for better touch targets */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s; /* Smooth transition for border */
+  }
+  
+  input:focus {
+    border-color: #007bff; /* Blue border on focus */
+  }
+  
+  .input-error {
+    border-color: #ff6b6b;
+  }
+  
+  .error-message {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .save-button,
+  .cancel-button,
+  .delete-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  }
+  
+  .save-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
+  .save-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+  }
+  
+  .cancel-button {
+    background-color: #ff6b6b; /* Red */
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #ff4d4d; /* Darker red on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+  }
+  
+  .delete-button {
+    background-color: #dc3545; /* Bootstrap red */
+    color: white;
+    flex-grow: 1; /* Allow delete button to take remaining space */
+    margin-left: 10px; /* Spacing between buttons */
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+  }
+  

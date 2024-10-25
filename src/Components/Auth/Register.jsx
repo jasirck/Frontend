@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';
+import axios from '../Api';
+import { useSelector } from 'react-redux';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -8,16 +10,41 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const {token} = useSelector((state)=>(state.authReducer))
+  
+  useEffect(() => {
+    if (token ) {
+      console.log(token);
+      
+      navigate('/dashboard');
+    }
+  }, [token, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError('Passwords do not match');
-    } else {
-      setError('');
-      // Simulate registration or add your registration logic here
-      console.log('User registered:', { email, username, password });
+      return;
+    }
+
+    setError('');
+    setLoading(true);
+    
+    try {
+      const response = await axios.post('signup/', {
+        email,
+        username,
+        password,
+      });
+
+      console.log('User registered successfully');
+      navigate('/'); 
+    } catch (error) {
+      setError(error.response?.data?.error || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,8 +88,11 @@ function Register() {
         />
 
         {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Registering...</p>}
 
-        <button type="submit">Register</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </button>
       </form>
       <p>Already have an account? <a onClick={() => navigate('/')}>Login</a></p>
     </div>

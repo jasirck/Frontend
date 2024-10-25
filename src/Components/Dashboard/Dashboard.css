@@ -1,69 +1,140 @@
 .dashboard-container {
-    padding: 20px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .logout-button {
-    padding: 8px 16px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .logout-button:hover {
-    background-color: #c82333;
-  }
-  
-  .employee-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .search-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .create-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .create-button:hover {
-    background-color: #0056b3;
-  }
-  
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logout-button {
+  padding: 8px 12px; /* Slightly smaller padding */
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}
+
+.employee-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Set width to 100% for better responsiveness */
+  max-width: 200px; /* Max width for larger screens */
+}
+
+.create-button, .settings-button {
+  padding: 8px 12px; /* Smaller padding */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
+
+.settings-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.settings-button:hover {
+  background-color: #5a6268;
+}
+
+.employee-table {
+  margin-top: 20px;
+  border-radius: 5px;
+  overflow: hidden; /* Make sure rounded corners work */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.employee-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.employee-table th {
+  background-color: #f8f9fa; /* Lighter header color */
+}
+
+.employee-table tr:hover {
+  background-color: #f1f1f1; /* Light grey background on row hover */
+}
+
+.edit-button {
+  padding: 8px 12px; /* Slightly smaller */
+  background-color: #28a745; /* Green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #218838; /* Darker green */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
   .employee-table table {
-    width: 100%;
-    border-collapse: collapse;
+    font-size: 14px;
+    display: block; /* Enables scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
   }
-  
-  .employee-table th,
-  .employee-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
+
+  .search-input {
+    width: 100%; /* Full width on small screens */
+    max-width: 150px; /* Smaller max width */
   }
-  
-  .employee-table th {
-    background-color: #f2f2f2;
+
+  .header {
+    flex-direction: column; /* Stack header elements */
+    align-items: flex-start; /* Align items to the start */
   }
-  
+
+  .actions {
+    flex-direction: column; /* Stack action buttons */
+    gap: 5px; /* Smaller gap */
+  }
+
+  .create-button, .settings-button, .logout-button, .edit-button {
+    width: 100%; /* Full width buttons on smaller screens */
+  }
+}

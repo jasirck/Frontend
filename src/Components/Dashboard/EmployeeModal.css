@@ -1,63 +1,75 @@
+/* EmployeeModal.css */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-  }
-  
-  .employee-form label {
-    display: block;
-    margin: 10px 0 5px;
-  }
-  
-  .employee-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .cancel-button,
-  .submit-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .cancel-button {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .submit-button {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #c82333;
-  }
-  
-  .submit-button:hover {
-    background-color: #218838;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-height: 80vh; /* Set a maximum height for the modal */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.employee-form label {
+  display: block;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.employee-form input {
+  width: 100%;
+  padding: 10px; /* Increased padding for better touch targets */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.employee-form input:focus {
+  border-color: #007bff; /* Blue border on focus */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button,
+.submit-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.cancel-button {
+  background-color: #dc3545; /* Bootstrap red */
+  color: white;
+}
+
+.submit-button {
+  background-color: #28a745; /* Bootstrap green */
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.submit-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}

@@ -1,0 +1,120 @@
+/* SettingsModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-container {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 450px;
+    max-height: 80vh; /* Set a maximum height for the modal */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+    font-family: Arial, sans-serif;
+  }
+  
+  h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-section, .edit-fields-section {
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .data-type-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .add-field-button, .edit-button, .update-field-button, .cancel-edit-button, .close-button {
+    padding: 6px 12px; /* Reduced padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%; /* Maintain full width */
+  }
+  
+  .add-field-button {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .add-field-button:hover {
+    background-color: #218838;
+  }
+  
+  .edit-button {
+    background-color: #007bff;
+    color: white;
+    margin-left: 10px;
+    width: auto; /* Allow auto width for the edit button */
+  }
+  
+  .edit-button:hover {
+    background-color: #0069d9;
+  }
+  
+  .update-field-button {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .update-field-button:hover {
+    background-color: #218838;
+  }
+  
+  .cancel-edit-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .cancel-edit-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .close-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .close-button:hover {
+    background-color: #c82333;
+  }
+  
+  .edit-field-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+  
+  .field-name {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+  }
+  

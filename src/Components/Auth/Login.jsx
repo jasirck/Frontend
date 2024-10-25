@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../toolkit/Slice'; 
+import axios from '../Api'; 
 
 function Login() {
-  const [User, setUser] = useState({ username: '', password: '' });
+  const [User, setUser] = useState({ username: '', password: '' }); 
   const [Error, setError] = useState(''); 
-  const navigate = useNavigate()
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
+  const {token} = useSelector((state)=>(state.authReducer))
+  const is_loged = token
+  
+  useEffect(() => {
+    if (is_loged ) {
+      console.log(is_loged);
+      navigate('/dashboard');
+    }
+  }, [is_loged, navigate]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    navigate('dashboard')
-    // Perform form validation or other checks here
     try {
-      // Simulate login or add your login logic here
-      console.log('User logged in:', User);
+      const response = await axios.post('login/', {
+        username: User.username,
+        password: User.password 
+      });
+      
+      const { access } = response.data; 
+      dispatch(login({ user: User.username, token: access })); 
+      console.log(User, access);
+      
+      navigate('dashboard'); 
     } catch (error) {
-      setError('Login failed. Please try again.');
+      setError('Login failed. Please try again.'); 
+      console.error('Login Error:', error.response ? error.response.data : error.message); // Log more details for debugging
     }
   };
 
@@ -24,10 +43,10 @@ function Login() {
     <div className="auth-container">
       <h2>Login</h2>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <label>Username</label>
+        <label>User Name</label> {/* Changed from Username to Email */}
         <input
-          type="text"
-          placeholder="Enter your username"
+          type="username" // Changed to type email for better user experience
+          placeholder="Enter your username" // Updated placeholder
           value={User.username}
           onChange={(e) => setUser({ ...User, username: e.target.value })}
           required
