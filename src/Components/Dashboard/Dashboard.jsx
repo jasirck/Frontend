@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../Api'; // Import Axios
+import axios from '../Api';
 import './Dashboard.css';
 import EmployeeModal from './EmployeeModal';
-import EditEmployeeModal from './EditEmployeeModal'; // Import the EditEmployeeModal
+import EditEmployeeModal from './EditEmployeeModal';
 import SettingsModal from './SettingsModal';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../toolkit/Slice';
@@ -13,8 +13,8 @@ function Dashboard() {
   const [fields, setFields] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // New state for edit modal
-  const [editingEmployee, setEditingEmployee] = useState(null); // State to hold the employee being edited
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingEmployee, setEditingEmployee] = useState(null);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,11 +28,12 @@ function Dashboard() {
 
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('employees/',{
+        const response = await axios.get('employees/', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-          },});
+          },
+        });
         setEmployees(response.data.data);
         const columnNames = response.data.columns;
         const columnTypes = response.data.column_types;
@@ -50,8 +51,8 @@ function Dashboard() {
   }, [token, navigate, isModalOpen, isEditModalOpen, isSettingsModalOpen]);
 
   const handleEditEmployee = (employee) => {
-    setEditingEmployee(employee); // Set the employee to edit
-    setIsEditModalOpen(true); // Open the edit modal
+    setEditingEmployee(employee);
+    setIsEditModalOpen(true);
   };
   
   const handleDeleteField = (fieldName) => {
@@ -72,26 +73,25 @@ function Dashboard() {
     );
   };
 
-  // Function to search employees based on the search term
   const handleSearch = async (term) => {
     if (term.trim() === '') {
-      const response = await axios.get('employees/',{
+      const response = await axios.get('employees/', {
         headers: {
           Authorization: `Bearer ${token}`,
-      
           'Content-Type': 'application/json',
-        },});
+        },
+      });
       setEmployees(response.data.data);
       return;
     }
 
     try {
-      const response = await axios.get(`employees/search/?search=${term}`,{
+      const response = await axios.get(`employees/search/?search=${term}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-      
           'Content-Type': 'application/json',
-        },});
+        },
+      });
       setEmployees(response.data.data);
     } catch (error) {
       console.error("Error searching employees:", error);
@@ -149,7 +149,7 @@ function Dashboard() {
           <thead>
             <tr>
               {fields.map((field) => (
-                <th key={field.name}>{field.name}</th> // Correct usage here
+                <th key={field.name}>{field.name}</th>
               ))}
               <th>Actions</th>
             </tr>
@@ -167,7 +167,7 @@ function Dashboard() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {employee[field.name]} {/* Show only the file name */}
+                          {employee[field.name]}
                         </a>
                       ) : (
                         employee[field.name] || ''
@@ -179,7 +179,6 @@ function Dashboard() {
                   </td>
                 </tr>
               ))
-              
             ) : (
               <tr>
                 <td colSpan={fields.length + 1} style={{ textAlign: 'center' }}>
@@ -202,17 +201,17 @@ function Dashboard() {
         <EditEmployeeModal
           employee={editingEmployee}
           onClose={() => setIsEditModalOpen(false)}
-          onUpdate={handleUpdateEmployee} // Pass the update function
+          onUpdate={handleUpdateEmployee}
           fields={fields}
         />
       )}
       {isSettingsModalOpen && (
         <SettingsModal
           currentFields={fields}
-          onClose={() => setIsSettingsModalOpen(false)} // Logic to close modal
-          onAddField={handleAddField} // Pass the add field function
-          onEditField={handleEditField} // Pass the edit field function
-          onDeleteField={handleDeleteField} // Ensure this prop is passed
+          onClose={() => setIsSettingsModalOpen(false)}
+          onAddField={handleAddField}
+          onEditField={handleEditField}
+          onDeleteField={handleDeleteField}
         />  
       )}
     </div>

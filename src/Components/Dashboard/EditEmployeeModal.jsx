@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../Api'; // Import Axios
+import axios from '../Api';
 import { FileUploader } from "react-drag-drop-files";
 import './EditEmployeeModal.css';
 import { useSelector } from 'react-redux';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 
 function EditEmployeeModal({ employee, onClose, onUpdate, onDelete, fields }) {
   const [formData, setFormData] = useState({});
@@ -45,8 +45,7 @@ function EditEmployeeModal({ employee, onClose, onUpdate, onDelete, fields }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      
-      // Show SweetAlert on successful update
+
       await Swal.fire({
         title: 'Success!',
         text: 'Employee updated successfully.',
@@ -80,21 +79,20 @@ function EditEmployeeModal({ employee, onClose, onUpdate, onDelete, fields }) {
           },
         });
 
-        // Show SweetAlert on successful deletion
         await Swal.fire({
           title: 'Deleted!',
           text: 'Employee has been deleted.',
           icon: 'success',
           confirmButtonText: 'OK'
         });
-        onDelete(employee.id)
-        
+
+        onDelete(employee.id);
       } catch (error) {
         console.error("Error deleting employee:", error);
         setError("Failed to delete employee. Please try again.");
       }
     }
-    onClose()
+    onClose();
   };
 
   return (

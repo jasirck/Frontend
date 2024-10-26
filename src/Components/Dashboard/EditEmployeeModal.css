@@ -1,4 +1,3 @@
-/* EditEmployeeModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -10,103 +9,102 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     width: 90%;
-    max-width: 500px; /* Increased max-width for better usability */
+    max-width: 500px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  h2 {
+}
+
+h2 {
     margin-top: 0;
     font-size: 1.5rem;
     color: #333;
     text-align: center;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 20px;
-  }
-  
-  label {
+}
+
+label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
     color: #444;
-  }
-  
-  input {
+}
+
+input {
     width: 100%;
-    padding: 10px; /* Slightly more padding for better touch targets */
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    transition: border-color 0.3s; /* Smooth transition for border */
-  }
-  
-  input:focus {
-    border-color: #007bff; /* Blue border on focus */
-  }
-  
-  .input-error {
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+}
+
+.input-error {
     border-color: #ff6b6b;
-  }
-  
-  .error-message {
+}
+
+.error-message {
     color: #ff6b6b;
     font-size: 0.875rem;
     margin-top: 5px;
-  }
-  
-  .modal-buttons {
+}
+
+.modal-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-  }
-  
-  .save-button,
-  .cancel-button,
-  .delete-button {
+}
+
+.save-button,
+.cancel-button,
+.delete-button {
     padding: 10px 50px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
-  }
-  
-  .save-button {
-    background-color: #4CAF50; /* Green */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.save-button {
+    background-color: #4CAF50;
     color: white;
-  }
-  
-  .save-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-    transform: translateY(-2px); /* Lift effect on hover */
-  }
-  
-  .cancel-button {
-    background-color: #ff6b6b; /* Red */
+}
+
+.save-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.cancel-button {
+    background-color: #ff6b6b;
     color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #ff4d4d; /* Darker red on hover */
-    transform: translateY(-2px); /* Lift effect on hover */
-  }
-  
-  .delete-button {
-    background-color: #dc3545; /* Bootstrap red */
+}
+
+.cancel-button:hover {
+    background-color: #ff4d4d;
+    transform: translateY(-2px);
+}
+
+.delete-button {
+    background-color: #dc3545;
     color: white;
-    flex-grow: 1; /* Allow delete button to take remaining space */
-    margin-left: 10px; /* Spacing between buttons */
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-    transform: translateY(-2px); /* Lift effect on hover */
-  }
-  
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}

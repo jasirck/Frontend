@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './SettingsModal.css';
 import axios from '../Api';
 import { useSelector } from 'react-redux';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 
 function SettingsModal({ onClose, onAddField, currentFields, onEditField, onDeleteField }) {
   const [newField, setNewField] = useState('');
@@ -26,7 +26,6 @@ function SettingsModal({ onClose, onAddField, currentFields, onEditField, onDele
         setNewField('');
         setDataType('text');
 
-        // Show success alert after adding field
         await Swal.fire({
           title: 'Success!',
           text: `Field "${newField}" added successfully.`,
@@ -55,7 +54,6 @@ function SettingsModal({ onClose, onAddField, currentFields, onEditField, onDele
         setEditingField('');
         setEditedFieldName('');
 
-        // Show success alert after editing field
         await Swal.fire({
           title: 'Success!',
           text: `Field name updated from "${fieldName}" to "${editedFieldName}".`,
@@ -82,7 +80,6 @@ function SettingsModal({ onClose, onAddField, currentFields, onEditField, onDele
       });
       onDeleteField(fieldName);
 
-      // Show success alert after deleting field
       await Swal.fire({
         title: 'Deleted!',
         text: `Field "${fieldName}" has been deleted.`,

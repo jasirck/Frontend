@@ -15,8 +15,8 @@
     padding: 25px;
     border-radius: 8px;
     width: 450px;
-    max-height: 80vh; /* Set a maximum height for the modal */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 80vh;
+    overflow-y: auto;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
     font-family: Arial, sans-serif;
 }
@@ -54,13 +54,13 @@ h3 {
 .cancel-edit-button,
 .close-button,
 .delete-button {
-    padding: 6px 12px; /* Padding remains the same for height */
+    padding: 6px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
     margin-top: 10px;
-    width: 80px; /* Set a specific width for the buttons */
+    width: 80px;
 }
 
 .add-field-button {
@@ -100,14 +100,14 @@ h3 {
 }
 
 .delete-button {
-    background-color: #dc3545; /* Red background for delete button */
-    color: white; /* White text color */
-    flex-grow: 0; /* Prevent the button from growing */
-    margin-left: 10px; /* Space between edit and delete buttons */
+    background-color: #dc3545;
+    color: white;
+    flex-grow: 0;
+    margin-left: 10px;
 }
 
 .delete-button:hover {
-    background-color: #c82333; /* Darker red on hover */
+    background-color: #c82333;
 }
 
 .close-button {
@@ -133,7 +133,7 @@ h3 {
 }
 
 .error-message {
-    color: red; /* Style for error messages */
+    color: red;
     text-align: center;
     margin-bottom: 10px;
 }

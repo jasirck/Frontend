@@ -37,7 +37,7 @@ function Login() {
       navigate('dashboard'); 
     } catch (error) {
       setError('Login failed. Please try again.'); 
-      console.error('Login Error:', error.response ? error.response.data : error.message); // Log more details for debugging
+      console.error('Login Error:', error.response ? error.response.data : error.message); 
     }
   };
 
@@ -45,10 +45,10 @@ function Login() {
     <div className="auth-container">
       <h2>Login</h2>
       <form className="auth-form" onSubmit={handleSubmit}>
-        <label>User Name</label> {/* Changed from Username to Email */}
+        <label>User Name</label>
         <input
-          type="username" // Changed to type email for better user experience
-          placeholder="Enter your username" // Updated placeholder
+          type="username" 
+          placeholder="Enter your username" 
           value={User.username}
           onChange={(e) => setUser({ ...User, username: e.target.value })}
           required

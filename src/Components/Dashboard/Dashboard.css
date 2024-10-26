@@ -11,7 +11,7 @@
 }
 
 .logout-button {
-  padding: 8px 12px; /* Slightly smaller padding */
+  padding: 8px 12px;
   background-color: #dc3545;
   color: white;
   border: none;
@@ -39,12 +39,13 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%; /* Set width to 100% for better responsiveness */
-  max-width: 200px; /* Max width for larger screens */
+  width: 100%;
+  max-width: 200px;
 }
 
-.create-button, .settings-button {
-  padding: 8px 12px; /* Smaller padding */
+.create-button,
+.settings-button {
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -72,7 +73,7 @@
 .employee-table {
   margin-top: 20px;
   border-radius: 5px;
-  overflow: hidden; /* Make sure rounded corners work */
+  overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -89,16 +90,16 @@
 }
 
 .employee-table th {
-  background-color: #f8f9fa; /* Lighter header color */
+  background-color: #f8f9fa;
 }
 
 .employee-table tr:hover {
-  background-color: #f1f1f1; /* Light grey background on row hover */
+  background-color: #f1f1f1;
 }
 
 .edit-button {
-  padding: 8px 12px; /* Slightly smaller */
-  background-color: #28a745; /* Green */
+  padding: 8px 12px;
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
@@ -107,34 +108,35 @@
 }
 
 .edit-button:hover {
-  background-color: #218838; /* Darker green */
+  background-color: #218838;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .employee-table table {
     font-size: 14px;
-    display: block; /* Enables scrolling */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent line breaks */
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .search-input {
-    width: 100%; /* Full width on small screens */
-    max-width: 150px; /* Smaller max width */
+    width: 100%;
+    max-width: 150px;
   }
 
   .header {
-    flex-direction: column; /* Stack header elements */
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .actions {
-    flex-direction: column; /* Stack action buttons */
-    gap: 5px; /* Smaller gap */
+    flex-direction: column;
+    gap: 5px;
   }
 
-  .create-button, .settings-button, .edit-button {
-    width: 100%; /* Full width buttons on smaller screens */
+  .create-button,
+  .settings-button,
+  .edit-button {
+    width: 100%;
   }
 }
