@@ -29,6 +29,8 @@ function Login() {
       });
       
       const { access } = response.data; 
+      console.log(response);
+      
       dispatch(login({ user: User.username, token: access })); 
       console.log(User, access);
       

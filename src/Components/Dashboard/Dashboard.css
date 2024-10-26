@@ -134,7 +134,7 @@
     gap: 5px; /* Smaller gap */
   }
 
-  .create-button, .settings-button, .logout-button, .edit-button {
+  .create-button, .settings-button, .edit-button {
     width: 100%; /* Full width buttons on smaller screens */
   }
 }

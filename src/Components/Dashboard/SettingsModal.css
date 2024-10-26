@@ -1,4 +1,3 @@
-/* SettingsModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -9,9 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .modal-container {
+}
+
+.modal-container {
     background: white;
     padding: 25px;
     border-radius: 8px;
@@ -20,101 +19,121 @@
     overflow-y: auto; /* Enable vertical scrolling */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
     font-family: Arial, sans-serif;
-  }
-  
-  h3 {
+}
+
+h3 {
     color: #333;
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  .form-section, .edit-fields-section {
+}
+
+.form-section,
+.edit-fields-section {
     margin-bottom: 20px;
-  }
-  
-  .input-field {
+}
+
+.input-field {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
-  }
-  
-  .data-type-select {
+}
+
+.data-type-select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-  }
-  
-  .add-field-button, .edit-button, .update-field-button, .cancel-edit-button, .close-button {
-    padding: 6px 12px; /* Reduced padding */
+}
+
+.add-field-button,
+.edit-button,
+.update-field-button,
+.cancel-edit-button,
+.close-button,
+.delete-button {
+    padding: 6px 12px; /* Padding remains the same for height */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
     margin-top: 10px;
-    width: 100%; /* Maintain full width */
-  }
-  
-  .add-field-button {
+    width: 80px; /* Set a specific width for the buttons */
+}
+
+.add-field-button {
     background-color: #28a745;
     color: white;
-  }
-  
-  .add-field-button:hover {
+}
+
+.add-field-button:hover {
     background-color: #218838;
-  }
-  
-  .edit-button {
+}
+
+.edit-button {
     background-color: #007bff;
     color: white;
-    margin-left: 10px;
-    width: auto; /* Allow auto width for the edit button */
-  }
-  
-  .edit-button:hover {
+}
+
+.edit-button:hover {
     background-color: #0069d9;
-  }
-  
-  .update-field-button {
+}
+
+.update-field-button {
     background-color: #28a745;
     color: white;
-  }
-  
-  .update-field-button:hover {
+}
+
+.update-field-button:hover {
     background-color: #218838;
-  }
-  
-  .cancel-edit-button {
+}
+
+.cancel-edit-button {
     background-color: #6c757d;
     color: white;
-  }
-  
-  .cancel-edit-button:hover {
+}
+
+.cancel-edit-button:hover {
     background-color: #5a6268;
-  }
-  
-  .close-button {
+}
+
+.delete-button {
+    background-color: #dc3545; /* Red background for delete button */
+    color: white; /* White text color */
+    flex-grow: 0; /* Prevent the button from growing */
+    margin-left: 10px; /* Space between edit and delete buttons */
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.close-button {
     background-color: #dc3545;
     color: white;
-  }
-  
-  .close-button:hover {
+}
+
+.close-button:hover {
     background-color: #c82333;
-  }
-  
-  .edit-field-group {
+}
+
+.edit-field-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px 0;
-  }
-  
-  .field-name {
+}
+
+.field-name {
     flex: 1;
     font-size: 16px;
     color: #333;
-  }
-  
+}
+
+.error-message {
+    color: red; /* Style for error messages */
+    text-align: center;
+    margin-bottom: 10px;
+}

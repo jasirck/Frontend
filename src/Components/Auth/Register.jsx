@@ -3,6 +3,7 @@ import './Auth.css';
 import { useNavigate } from 'react-router-dom';
 import axios from '../Api';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2'; 
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -12,12 +13,11 @@ function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {token} = useSelector((state)=>(state.authReducer))
+  const { token } = useSelector((state) => state.authReducer);
   
   useEffect(() => {
-    if (token ) {
+    if (token) {
       console.log(token);
-      
       navigate('/dashboard');
     }
   }, [token, navigate]);
@@ -39,12 +39,20 @@ function Register() {
         password,
       });
 
-      console.log('User registered successfully');
+      console.log('User registered successfully')      
+      await Swal.fire({
+        title: 'Registration Successful!',
+        text: 'You can now log in to your account.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       navigate('/'); 
     } catch (error) {
+      
       setError(error.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
+      
     }
   };
 

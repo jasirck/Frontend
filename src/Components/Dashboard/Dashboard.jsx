@@ -28,7 +28,11 @@ function Dashboard() {
 
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('employees/');
+        const response = await axios.get('employees/',{
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },});
         setEmployees(response.data.data);
         const columnNames = response.data.columns;
         const columnTypes = response.data.column_types;
@@ -37,7 +41,6 @@ function Dashboard() {
           type: columnTypes[index],
         }));
         setFields(newFields);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
@@ -72,13 +75,23 @@ function Dashboard() {
   // Function to search employees based on the search term
   const handleSearch = async (term) => {
     if (term.trim() === '') {
-      const response = await axios.get('employees/');
+      const response = await axios.get('employees/',{
+        headers: {
+          Authorization: `Bearer ${token}`,
+      
+          'Content-Type': 'application/json',
+        },});
       setEmployees(response.data.data);
       return;
     }
 
     try {
-      const response = await axios.get(`employees/search/?search=${term}`);
+      const response = await axios.get(`employees/search/?search=${term}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+      
+          'Content-Type': 'application/json',
+        },});
       setEmployees(response.data.data);
     } catch (error) {
       console.error("Error searching employees:", error);
@@ -108,7 +121,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="header">
-        <h1>Hello, {user}!</h1>
+        <h1>Hello, {user} . . .</h1>
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
@@ -147,12 +160,15 @@ function Dashboard() {
                 <tr key={employee.id}>
                   {fields.map((field) => (
                     <td key={field.name}>
-                      {field.type === 'image' && employee[field.name] ? (
-                        <img
-                          src={'http://127.0.0.1:8000' + employee[field.name]}
+                      {field.type === 'BLOB' && employee[field.name] ? (
+                        <a 
+                          href={`http://127.0.0.1:8000/media/${employee[field.name]}`}
                           alt={field.name}
-                          style={{ width: '50px', height: '50px', objectFit: 'cover' }}
-                        />
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {employee[field.name]} {/* Show only the file name */}
+                        </a>
                       ) : (
                         employee[field.name] || ''
                       )}
@@ -163,6 +179,7 @@ function Dashboard() {
                   </td>
                 </tr>
               ))
+              
             ) : (
               <tr>
                 <td colSpan={fields.length + 1} style={{ textAlign: 'center' }}>

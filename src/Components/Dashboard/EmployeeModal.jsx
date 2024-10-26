@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import axios from '../Api'; // Import Axios
 import { FileUploader } from "react-drag-drop-files";
 import './EmployeeModal.css';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 function EmployeeModal({ onClose, onSubmit, fields }) {
   const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
+  const { token } = useSelector((state) => state.authReducer);
+
+  console.log(fields);
 
   const handleChange = (e) => {
     const { name, type, files, value, checked } = e.target;
@@ -23,6 +29,16 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
+    setErrorMessage(''); // Reset error message
+
+    // Validation: Check for required fields
+    for (const field of fields) {
+      if (field.required && !formData[field.name]) {
+        setErrorMessage(`Please fill in the ${field.name} field.`);
+        return; // Exit if validation fails
+      }
+    }
+
     const form = new FormData();
     for (const key in formData) {
       form.append(key, formData[key]);
@@ -32,12 +48,22 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
       const response = await axios.post('employees/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
         },
       });
       onSubmit(response.data); // Pass the new employee data back to the parent
+
+      // Show SweetAlert on successful submission
+      await Swal.fire({
+        title: 'Success!',
+        text: 'Employee created successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+
       onClose(); // Close the modal
     } catch (error) {
-      console.error("Error creating employee:", error);
+      setErrorMessage("Error creating employee: " + (error.response?.data?.error || error.message));
     }
   };
 
@@ -45,6 +71,7 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
     <div className="modal-overlay">
       <div className="modal-container">
         <h3>Add New Employee</h3>
+        {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message */}
         <form className="employee-form" onSubmit={handleSubmit}>
           {fields
             .filter((field) => field.name !== 'id') // Exclude 'id' field if necessary
@@ -57,23 +84,27 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
                     name={field.name}
                     onChange={handleChange}
                     placeholder={`Enter ${field.name}`}
+                    required={field.required} // Mark as required if specified
                   />
                 ) : field.type === 'BLOB' ? (
                   <FileUploader
                     handleChange={(file) => handleFileUpload(file, field.name)}
                     name={field.name}
                     types={["jpg", "png", "txt", "pdf"]} // Define acceptable file types here
+                    required={field.required} // Mark as required if specified
                   />
                 ) : field.type === 'DATE' ? (
                   <input
                     type="date"
                     name={field.name}
                     onChange={handleChange}
+                    required={field.required}
                   />
                 ) : field.type === 'BOOLEAN' ? (
                   <input
                     type="checkbox"
                     name={field.name}
+                    checked={formData[field.name] || false}
                     onChange={handleChange}
                   />
                 ) : field.type === 'VARCHAR(255)' ? (
@@ -81,6 +112,7 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
                     type="email"
                     name={field.name}
                     onChange={handleChange}
+                    required={field.required} // Mark as required if specified
                   />
                 ) : (
                   <input
@@ -88,6 +120,7 @@ function EmployeeModal({ onClose, onSubmit, fields }) {
                     name={field.name}
                     onChange={handleChange}
                     placeholder={`Enter ${field.name}`}
+                    required={field.required} // Mark as required if specified
                   />
                 )}
               </div>

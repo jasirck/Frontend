@@ -1,116 +1,173 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../Api'; // Import Axios
-import './EditEmployeeModal.css';
 import { FileUploader } from "react-drag-drop-files";
+import './EditEmployeeModal.css';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
-function EditEmployeeModal({ employee, onClose, fields, onUpdate }) {
+function EditEmployeeModal({ employee, onClose, onUpdate, onDelete, fields }) {
   const [formData, setFormData] = useState({});
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState('');
+  const { token } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    // Exclude id from form data
     const { id, ...dataWithoutId } = employee;
     setFormData(dataWithoutId);
   }, [employee]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, type, files, value, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'file' ? files[0] : type === 'checkbox' ? checked : value,
+    });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if there are no errors
+  const handleFileUpload = (file, name) => {
+    setFormData({
+      ...formData,
+      [name]: file,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    const form = new FormData();
+
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    try {
+      const response = await axios.put(`employees/${employee.id}/`, form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      // Show SweetAlert on successful update
+      await Swal.fire({
+        title: 'Success!',
+        text: 'Employee updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+
+      onUpdate(response.data);
+      onClose();
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      setError("Failed to update employee. Please try again.");
+    }
+  };
+
+  const handleDelete = async () => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (result.isConfirmed) {
       try {
-        // Call API to update employee
-        await axios.put(`employees/${employee.id}/`, { ...formData, id: employee.id });
-        onUpdate({ ...formData, id: employee.id }); // Update the employee in the parent component
-        onClose(); // Close the modal
+        await axios.delete(`employees/${employee.id}/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // Show SweetAlert on successful deletion
+        await Swal.fire({
+          title: 'Deleted!',
+          text: 'Employee has been deleted.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        onDelete(employee.id)
+        
       } catch (error) {
-        console.error("Error updating employee:", error);
+        console.error("Error deleting employee:", error);
+        setError("Failed to delete employee. Please try again.");
       }
     }
-  };
-
-  const handleFileUpload = (file, fieldName) => {
-    // Handle the file upload logic here
-    setFormData((prev) => ({ ...prev, [fieldName]: file }));
-  };
-
-  const handleDeleteEmployee = async () => {
-    try {
-      // Make a DELETE request to the API to remove the employee by ID
-      await axios.delete(`employees/${employee.id}/`);
-      onClose(); // Close the modal upon successful deletion
-    } catch (error) {
-      console.error("Error deleting employee:", error);
-    }
+    onClose()
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Edit Employee</h2>
-        <form onSubmit={handleSubmit}>
-          {fields.map((field) => (
-            field.name !== 'id' && ( // Exclude id field from rendering
-              <div className="form-group" key={field.name}>
-                <label htmlFor={field.name}>
-                  {field.name.charAt(0).toUpperCase() + field.name.slice(1)}
-                </label>
+      <div className="modal-container">
+        <h3>Edit Employee</h3>
+        {error && <p className="error-message">{error}</p>}
+        <form className="employee-form" onSubmit={handleSubmit}>
+          {fields
+            .filter((field) => field.name !== 'id')
+            .map((field) => (
+              <div key={field.name} className="form-group">
+                <label>{field.name.charAt(0).toUpperCase() + field.name.slice(1)}</label>
                 {field.type === 'INTEGER' ? (
                   <input
                     type="number"
                     name={field.name}
+                    value={formData[field.name] || ''}
                     onChange={handleChange}
                     placeholder={`Enter ${field.name}`}
                   />
                 ) : field.type === 'BLOB' ? (
-                  <FileUploader
-                    handleChange={(file) => handleFileUpload(file, field.name)}
-                    name={field.name}
-                    types={["jpg", "png", "txt", "pdf"]} // Define acceptable file types here
-                  />
+                  <>
+                    <FileUploader
+                      handleChange={(file) => handleFileUpload(file, field.name)}
+                      name={field.name}
+                      types={["jpg", "png", "txt", "pdf"]}
+                    />
+                    {formData[field.name] instanceof File ? (
+                      <p>File selected: {formData[field.name]?.name}</p>
+                    ) : (
+                      <p>No file selected</p>
+                    )}
+                  </>
                 ) : field.type === 'DATE' ? (
                   <input
                     type="date"
                     name={field.name}
+                    value={formData[field.name] || ''}
                     onChange={handleChange}
                   />
                 ) : field.type === 'BOOLEAN' ? (
                   <input
                     type="checkbox"
                     name={field.name}
+                    checked={formData[field.name] || false}
                     onChange={handleChange}
                   />
-                ) : field.type === 'VARCHAR(255)' ? (
+                ) : field.type.toUpperCase() === "VARCHAR(254)" ? (
                   <input
                     type="email"
                     name={field.name}
+                    value={formData[field.name] || ''}
                     onChange={handleChange}
+                    placeholder={`Enter ${field.name}`}
                   />
                 ) : (
                   <input
                     type="text"
                     name={field.name}
+                    value={formData[field.name] || ''}
                     onChange={handleChange}
                     placeholder={`Enter ${field.name}`}
                   />
                 )}
-                {errors[field.name] && <p className="error-message">{errors[field.name]}</p>}
               </div>
-            )
-          ))}
-          <div className="modal-buttons">
-            <button type="submit" className="save-button">Save</button>
-            <button type="button" className="delete-button" onClick={handleDeleteEmployee}>
+            ))}
+          <div className="modal-actions">
+            <button type="button" onClick={handleDelete} className="delete-button">
               Delete
+            </button>
+            <button type="submit" className="submit-button">
+              Submit
             </button>
             <button type="button" onClick={onClose} className="cancel-button">
               Cancel
